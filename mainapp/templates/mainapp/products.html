@@ -13,32 +13,32 @@
     <div class="details">
         <div class="links clearfix">
             <ul class="links-menu">
-                <li><a href="#" class="active">все</a></li>
-                <li><a href="#">дом</a></li>
-                <li><a href="#">офис</a></li>
-                <li><a href="#">модерн</a></li>
-                <li><a href="#">классика</a></li>
+                {% for link_menu in links_menu %}
+                    <li><a href="{% url link_menu.href %}"
+                           class="{% if request.resolver_match.url_name == link_menu.href %}active{% endif %}">{{ link_menu.name }}</a>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
 
         <div class="details-products">
             <div class="details-slider">
                 <div class="slider-product">
-                    <img src="/static/img/slider1.jpg">
+                    <img src="{% static 'img/slider1.jpg' %}">
                 </div>
                 <div class="slider-control">
                     <div class="block">
-                        <a href="#"><img src="/static/img/controll.jpg" alt="">
+                        <a href="#"><img src="{% static 'img/controll.jpg' %}" alt="">
                             <div class="text"></div>
                         </a>
                     </div>
                     <div class="block">
-                        <a href="#"><img src="/static/img/controll1.jpg" alt="">
+                        <a href="#"><img src="{% static 'img/controll1.jpg' %}" alt="">
                             <div class="text"></div>
                         </a>
                     </div>
                     <div class="block">
-                        <a href="#"><img src="/static/img/controll2.jpg" alt="">
+                        <a href="#"><img src="{% static 'img/controll2.jpg' %}" alt="">
                             <div class="text"></div>
                         </a>
                     </div>
@@ -66,36 +66,21 @@
         <div class="related">
             <div class="title clearfix">
                 <h2>Похожие продукты</h2>
-                <a class="explore" href="#">показать все <img src="/static/img/arrow.png" alt=""></a>
+                <a class="explore" href="#">показать все <img src="{% static 'img/arrow.png' %}" alt=""></a>
             </div>
             <div class="related-products clearfix">
-                <div class="block">
-                    <a href="#"><img src="/static/img/product-11.jpg" alt="">
-                        <div class="text">
-                            <img src="/static/img/icon-hover.png" alt="img">
-                            <h4>Стул повышенного качества</h4>
-                            <p>Не оторваться. </p>
-                        </div>
-                    </a>
-                </div>
-                <div class="block">
-                    <a href="#"><img src="/static/img/product-21.jpg" alt="">
-                        <div class="text">
-                            <img src="/static/img/icon-hover.png" alt="img">
-                            <h4>Стул повышенного качества</h4>
-                            <p>Не оторваться. </p>
-                        </div>
-                    </a>
-                </div>
-                <div class="block">
-                    <a href="#"><img src="/static/img/product-31.jpg" alt="">
-                        <div class="text">
-                            <img src="/static/img/icon-hover.png" alt="img">
-                            <h4>Стул повышенного качества</h4>
-                            <p>Не оторваться. </p>
-                        </div>
-                    </a>
-                </div>
+                {% for same_product in same_products %}
+                    <div class="block">
+                        <a href="#"><img src="{% static 'img/' %}{{ same_product.image_src }}"
+                                         alt="{{ same_product.image_alt }}">
+                            <div class="text">
+                                <img src="{% static 'img/icon-hover.png' %}" alt="img">
+                                <h4>{{ same_product.name }}</h4>
+                                <p>{{ same_product.desc }} </p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
 
             </div>
         </div>
