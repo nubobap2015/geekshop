@@ -1,0 +1,66 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block myTitleBlock %}
+            {{ myTitle }}
+        {% endblock myTitleBlock %}
+    </title>
+
+    {% block myCssBlock %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css'%}">
+    	<link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css'%}">
+    {% endblock myCssBlock %}
+
+    {% block myJsBlock %}
+    {% endblock myJsBlock %}
+
+</head>
+<body>
+
+<div class="container">
+
+    {% block myMenuBlock %}
+    {% endblock myMenuBlock %}
+
+    <div class="content">
+        {% block myContentBlock %}
+        {% endblock myContentBlock %}
+    </div>
+
+</div>
+
+{% block myFooterBlock %}
+    <div class="footer">
+        <div class="clearfix">
+            <div class="text-footer">
+                <h3>контакты</h3>
+            </div>
+            <div class="text-footer">
+                <h3>полезная информация</h3>
+            </div>
+            <div class="text-footer clearfix">
+                <h3>Оставайтесь на связи</h3>
+                <p>Подписаться на новости и рассылки</p>
+                <form>
+                    <input type="email" name="email" placeholder="ваш email">
+                    <a href="#"><i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i></a>
+                </form>
+            </div>
+        </div>
+        <p class="small">&copy; GB 2020</p>
+        <div class="social">
+            <a href="#" class="social1"></a>
+            <a href="#" class="social2"></a>
+            <a href="#" class="social3"></a>
+            <a href="#" class="social4"></a>
+        </div>
+        <p class="small">Положения &amp; Условия  /  Конфиденциальность &amp; Cookies</p>
+    </div>
+{% endblock myFooterBlock %}
+
+</body>
+</html>
