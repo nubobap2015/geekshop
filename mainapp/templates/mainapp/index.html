@@ -1,93 +1,49 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Магазин</title>
-	<link rel="stylesheet" type="text/css" href="/static/style.css">
-	<link rel="stylesheet" href="/static/fonts/font-awesome/css/font-awesome.css">
-</head>
-<body>
-	<div class="container">
-		<div class="slider">
-			<div class="header clearfix">
-				<a href="/" class="logo"></a>
-				<ul class="menu">
-					<li><a href="/" class="active">домой</a></li>
-					<li><a href="/product">продукты</a></li>
-					<li><a href="/contact">контакты</a></li>
-				</ul>
-				<a href="#" class="search"></a>
-			</div>
-			<div class="text-slider">
-				<h3 class="green">тенденции</h3>
-				<h3 class="big"> удобные стулья</h3>
-				<p>Новый уровень комфорта. Отличные характеристики.</p>
-				<a href="#" class="button-order">заказать <img src="/static/img/arrow.png" alt=""></a>
-			</div>	
-			<div class="navi">
-				<a href="#"></a><a href="#"></a><a href="#"></a>
-			</div>
-		</div>
+{% extends 'mainapp/_base.html' %}
+{% load staticfiles %}
 
-		<div class="featured">
-			<div class="featured-menu">
-					<a class="active" href="#">Популярные</a><a href="#">Новинки</a>
-			</div>
-			<a class="explore" href="#">показать все <img src="/static/img/arrow.png" alt=""></a>
-			<div class="clearfix">
-			</div>
-			<div class="tab-content">
-				<div class="block">
-					<a href="#"><img src="/static/img/product-1.jpg" alt=""> 
-						<div class="text">
-							<img src="/static/img/icon-hover.png" alt="img">
-							<h4>Отличный стул</h4>
-							<p>Расположитесь комфортно. </p>
-						</div> 
-					</a>
-				</div>
-				<div class="block">
-					<a href="#"><img src="/static/img/product-2.jpg" alt="">
-						<div class="text">
-							<img src="/static/img/icon-hover.png" alt="">
-							<h4>Стул повышенного качества</h4>
-							<p>Не оторваться. </p>
-						</div>
-					</a>
-				</div>	
-			</div>
-		</div>
-		
-		<div class="clr"></div>
 
-	</div>
+{% block myMenuBlock %}
+    <div class="slider">
+        <div class="header clearfix">
+            {% include 'mainapp/includes/menu_inc.html' %}
+        </div>
+        <div class="text-slider">
+            <h3 class="green">тенденции</h3>
+            <h3 class="big"> удобные стулья</h3>
+            <p>Новый уровень комфорта. Отличные характеристики.</p>
+            <a href="#" class="button-order">заказать <img src="{% static '/img/arrow.png' %}" alt=""></a>
+        </div>
+        <div class="navi">
+            <a href="#"></a><a href="#"></a><a href="#"></a>
+        </div>
+    </div>
+{% endblock myMenuBlock %}
 
-    <div class="footer">
+{% block myContentBlock %}
+    <div class="featured">
+        <div class="featured-menu">
+            <a class="active" href="#">Популярные</a><a href="#">Новинки</a>
+        </div>
+        <a class="explore" href="#">показать все <img src="{% static 'img/arrow.png' %}" alt=""></a>
         <div class="clearfix">
-            <div class="text-footer">
-                <h3>контакты</h3>
-            </div>
-            <div class="text-footer">
-                <h3>полезная информация</h3>
-            </div>
-            <div class="text-footer clearfix">
-                <h3>Оставайтесь на связи</h3>
-                <p>Подписаться на новости и рассылки</p>
-                <form>
-                    <input type="email" name="email" placeholder="ваш email">
-                    <a href="#"><i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i></a>
-                </form>
-            </div>
         </div>
-        <p class="small">&copy; GB 2017</p>
-        <div class="social">
-            <a href="#" class="social1"></a>
-            <a href="#" class="social2"></a>
-            <a href="#" class="social3"></a>
-            <a href="#" class="social4"></a>
+        <div class="tab-content">
+            {% for product in products %}
+                <div class="block">
+                    <a href="{{ product.image_href }}"><img src="{% static 'img/' %}{{ product.image_src }}"
+                                                            alt="{{ product.alt }}">
+                        <div class="text">
+                            <img src="{% static 'img/icon-hover.png' %}" alt="{{ product.alt }}">
+                            <h4>{{ product.name }}</h4>
+                            <p>{{ product.desc }} </p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
-        <p class="small">Положения &amp; Условия  /  Конфиденциальность &amp; Cookies</p>
-    </div>	
-	
-</body>
-</html>
+    </div>
+
+    <div class="clr"></div>
+
+    </div>
+{% endblock myContentBlock %}
