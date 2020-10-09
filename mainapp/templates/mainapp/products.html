@@ -13,9 +13,11 @@
     <div class="details">
         <div class="links clearfix">
             <ul class="links-menu">
-                {% for link_menu in links_menu %}
-                    <li><a href="{% url link_menu.href %}"
-                           class="{% if request.resolver_match.url_name == link_menu.href %}active{% endif %}">{{ link_menu.name }}</a>
+                {% for link in links_menu %}
+                    <li>
+                        <a href="{% url 'products:category' link.pk %}">
+                            {{ link.name }}
+                        </a>
                     </li>
                 {% endfor %}
             </ul>
@@ -72,7 +74,7 @@
                 {% for same_product in same_products %}
                     <div class="block">
                         <a href="#"><img src="{{ media_url }}{{ same_product.image_src }}"
-                                         alt="{{ same_product.image_alt }}">
+                                         alt="{{ same_product.image_alt }}" class="block">
                             <div class="text">
                                 <img src="{% static 'img/icon-hover.png' %}" alt="{{ same_product.alt }}">
                                 <h4>{{ same_product.name }}</h4>
