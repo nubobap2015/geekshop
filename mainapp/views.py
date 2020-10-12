@@ -1,46 +1,25 @@
 import datetime
+from django.conf import settings
 from django.shortcuts import render
+from .models import Product, ProductsCategory
 
 
 # Create your views here.
 
 def main(request):
     title = "Главная"
-    products = [
-        {
-            'name': 'Отличный стул',
-            'desc': 'Расположи седалище комфортно',
-            'image_src': 'product-1.jpg',
-            'image_href': '/product/1',  # Почему "/product/1", а не "/products/1"?
-            'alt': 'продукт №1',
-        },
-        {
-            'name': 'Стул с клеевым диспенсером',
-            'desc': 'НЕ ОТОРВАТЬСЯ!',
-            'image_src': 'product-2.jpg',
-            'image_href': '/product/2',
-            'alt': 'продукт №2',
-        },
-    ]
-    content = {"myTitle": title, "products": products}
+    my_products = Product.objects.all()[0:4]
+    content = {"myTitle": title, "products": my_products, "media_url": settings.MEDIA_URL}
     return render(request, "mainapp/index.html", content)
 
 
-def products(request):
+def products(request, pk=None):
     title = "Продукты"
-    links_menu = [
-        {"href": "products_all", "name": "все"},
-        {"href": "products_home", "name": "дом"},
-        {"href": "products_office", "name": "офис"},
-        {"href": "products_modern", "name": "модерн"},
-        {"href": "products_classic", "name": "классика"},
-    ]
-    same_products = [
-        {"name": "Отличный стул", "desc": "Не оторваться.", "image_src": "product-11.jpg", "alt": "продукт 11"},
-        {"name": "Стул повышенного качества", "desc": "Комфортно.", "image_src": "product-21.jpg", "alt": "продукт 21"},
-        {"name": "Стул премиального качества", "desc": "Просто попробуйте.", "image_src": "product-31.jpg", "alt": "продукт 31"},
-    ]
-    content = {"myTitle": title, "links_menu": links_menu, "same_products":same_products}
+    links_menu = ProductsCategory.objects.all()
+    same_products = Product.objects.all()
+    content = {"myTitle": title, "links_menu": links_menu, "same_products":same_products, "media_url": settings.MEDIA_URL}
+    if pk:
+        print(f"User select category: {pk}")
     return render(request, "mainapp/products.html", content)
 
 
