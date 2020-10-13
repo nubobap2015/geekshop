@@ -31,3 +31,15 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.name} [{self.id_cat.name}]{"(удалено)" if self.isDeleted else ""}'
 
+class Contact(models.Model):
+    city = models.CharField(verbose_name="Город", max_length=255, blank=False)
+    phone = models.CharField(verbose_name="Контактный телефон", max_length=255, blank=False)
+    email = models.EmailField(verbose_name="Email", max_length = 255, blank=False)
+    address = models.TextField(verbose_name="Адрес", max_length=2000, blank=False)
+    #  Служебные
+    isDeleted = models.BooleanField(verbose_name='Удалено', default=False)
+    date_create = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True)
+    date_upd = models.DateTimeField(verbose_name='Дата изменения', auto_now=True)
+
+    def __str__(self):
+        return f'{self.city}({self.id})'
