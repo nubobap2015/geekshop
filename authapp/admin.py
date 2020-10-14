@@ -5,7 +5,13 @@ from .models import ShopUser
 
 
 class ShopUserAdmin(UserAdmin):
-    pass
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'password1', 'password2', 'age'),
+        }),
+    )
+
 
 
 admin.site.register(ShopUser, ShopUserAdmin)
