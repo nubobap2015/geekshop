@@ -13,4 +13,5 @@ class ShopUserAdmin(UserAdmin):
     )
 
 
+
 admin.site.register(ShopUser, ShopUserAdmin)

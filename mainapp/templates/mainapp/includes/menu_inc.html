@@ -11,7 +11,6 @@
         <li>
             <a href="{% url 'auth:edit' %}">
                 {{ user.first_name|default:'Пользователь' }}
-                <img src="{{ media_url }}{{ user.avatar }}" width="85px" style="alignment: top">
             </a>
         </li>
     {% endif %}
@@ -24,3 +23,6 @@
     </li>
 </ul>
 <a href="#" class="search"></a>
+{% if user.is_authenticated %}
+    <img src="{{ media_url }}{{ user.avatar }}" width="85px" style="alignment: top">
+{% endif %}
