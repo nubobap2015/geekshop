@@ -19,12 +19,12 @@
                         {% else %}
                             <a href="{% url 'auth:login' %}">
                         {% endif %}
-                        <a href="#"><img src="{{ media_url }}{{ product.image_src }}" alt="{{ product.alt }}">
-                            <div class="text">
-                                <img src="{% static 'img/icon-hover.png' %}" alt="hover">
-                                <h4>{{ product.name }}</h4>
-                                <p>{{ product.desc }} </p>
-                            </div>
+                        <img src="{{ media_url }}{{ product.image_src }}" alt="{{ product.alt }}">
+                        <div class="text">
+                            <img src="{% static 'img/icon-hover.png' %}" alt="hover">
+                            <h4>{{ product.name }}</h4>
+                            <p>{{ product.desc }} </p>
+                        </div>
                         </a>
                     </div>
                 {% endfor %}

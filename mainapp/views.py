@@ -16,6 +16,7 @@ def main(request):
 def products(request, pk=None):
     title = "Продукты"
     links_menu = ProductsCategory.objects.all()
+
     if pk is not None:
         print(f"User select category: {pk}")
         if pk == 0:
