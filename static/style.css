@@ -143,13 +143,15 @@ html, body {
 
 .category-products .block a img {
 	float: left;
-	max-width: 340px;
-	max-height: 340px;
+	max-width: 370px;
+	max-height: 370px;
+	align-content: center;
 }
 
 .category-products .block {
 	float: left;
 	margin-right: 30px;
+	margin-bottom: 30px;
 	display: block;
 	height: 370px;
 	width: 370px;
