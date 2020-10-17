@@ -1253,6 +1253,12 @@ td:first-child {
 	height: 400px;
 }
 
+.slider-product img{
+	width: 100%;
+	max-width: 400px;
+	max-height: 400px;
+}
+
 .slider-control {
 	width: 420px;
 	height: 70px;
