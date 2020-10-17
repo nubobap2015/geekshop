@@ -1,0 +1,37 @@
+{% extends "mainapp/products.html" %}
+{% load staticfiles %}
+
+{% block myContentBlock %}
+    <div class="details">
+        <div class="links clearfix">
+            {% include "mainapp/includes/inc_categories_menu.html" %}
+        </div>
+
+        <div class="products_list">
+            <div class="title clearfix">
+                <h2>Категория: "{{ category.name|title }}"</h2>
+            </div>
+            <div class="category-products clearfix">
+                {% for product in products %}
+                    <div class="block">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'basket:add' product.pk %}">
+                        {% else %}
+                            <a href="{% url 'auth:login' %}">
+                        {% endif %}
+                        <img src="{{ media_url }}{{ product.image_src }}" alt="{{ product.alt }}">
+                        <div class="text">
+                            <img src="{% static 'img/icon-hover.png' %}" alt="hover">
+                            <h4>{{ product.name }}</h4>
+                            <p>{{ product.desc }} </p>
+                        </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clr"></div>
+
+{% endblock %}
