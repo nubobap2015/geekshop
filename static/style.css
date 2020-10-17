@@ -143,6 +143,8 @@ html, body {
 
 .category-products .block a img {
 	float: left;
+	max-height: 370px;
+	max-width: 370px;
 }
 
 .category-products .block {

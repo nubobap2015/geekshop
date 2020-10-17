@@ -8,5 +8,5 @@ app_name = BasketappConfig.name
 urlpatterns = [
     path("", basketapp.basket, name="view"),
     path("add/<int:pk>/", basketapp.basket_add, name="add"),
-    path("remove/<int:pk>)/", basketapp.basket_remove, name="remove"),
+    path("remove/<int:pk>/", basketapp.basket_remove, name="remove"),
 ]

@@ -10,4 +10,4 @@ class ShopUser(AbstractUser):
 
     @property
     def user_basket(self):
-        return Basket.objects.get(user=self)
+        return Basket.objects.filter(user=self)[0]

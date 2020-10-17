@@ -30,3 +30,34 @@ class Basket(models.Model):
     @property
     def total_quantity(self):
         return sum(list(map(lambda _prod: _prod.quantity, self.products)))
+
+    def _get_product(self, prod_pk):
+        my_products = self.products.filter(pk=prod_pk)
+        return None if not my_products else my_products[0]
+
+    def add_product(self, prod_pk):
+        my_product = self._get_product(prod_pk)
+        if my_product is None:
+            _tmp_product = Product.objects.filter(pk=prod_pk)
+            if not _tmp_product:
+                return False
+            my_product = Basket(user=self.user, product=_tmp_product[0])
+        my_product.quantity += 1
+        my_product.save()
+        return my_product
+
+    def remove_product(self, prod_pk):
+        my_product = self._get_product(prod_pk)
+        if my_product is not None:
+            my_product.delete()
+            return True
+        return False
+
+    def set_quantity_of_product(self, prod_pk, count):
+        my_product = self._get_product(prod_pk)
+        if my_product is None:
+            my_product = self.add_product(prod_pk)
+        if not my_product:
+            return False
+        my_product.quantity = count
+        return my_product
