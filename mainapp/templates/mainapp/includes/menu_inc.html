@@ -34,7 +34,7 @@
 <a href="#" class="search"></a>
 {% if user.is_authenticated %}
     <a href="{% url 'basket:view' %}" class="basket">
-        <span>{{ user.user_basket.total_cost|floatformat:2 }} ₽ ({{ user.user_basket.total_quantity }})</span>
+        <span>{{ user.total_cost|floatformat:2 }} ₽ ({{ user.total_quantity }})</span>
     </a>
 {% endif %}
 

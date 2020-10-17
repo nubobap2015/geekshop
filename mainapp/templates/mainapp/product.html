@@ -1,15 +1,15 @@
 {% extends 'mainapp/_base.html' %}
 {% load staticfiles %}
 
-{% block menu %}
+{% block myMenuBlock %}
 <div class="hero-white">
     <div class="header clearfix">
         {% include 'mainapp/includes/menu_inc.html' %}
     </div>
 </div>
-{% endblock %}
+{% endblock myMenuBlock %}
 
-{% block content %}
+{% block myContentBlock %}
 <div class="details">
     <div class="links clearfix">
         {% include 'mainapp/includes/inc_categories_menu.html' %}
@@ -18,21 +18,21 @@
     <div class="details-products">
         <div class="details-slider">
             <div class="slider-product">
-                <img src="{{ media_url }}{{ product.img_src }}" alt="{{ product.alt }}">
+                <img src="{{ media_url }}{{ product.image_src }}" alt="{{ product.alt }}">
             </div>
             <div class="slider-control">
                 <div class="block">
-                    <a href="#"><img src="{{ media_url }}{{ product.img_src  }}" alt="вариант 1">
+                    <a href="#"><img src="{{ media_url }}{{ product.image_src  }}" alt="вариант 1">
                         <div class="text"></div>
                     </a>
                 </div>
                 <div class="block">
-                    <a href="#"><img src="{{ media_url }}{{ product.img_src  }}" alt="вариант 2">
+                    <a href="#"><img src="{{ media_url }}{{ product.image_src  }}" alt="вариант 2">
                         <div class="text"></div>
                     </a>
                 </div>
                 <div class="block">
-                    <a href="#"><img src="{{ media_url }}{{ product.img_src  }}" alt="вариант 3">
+                    <a href="#"><img src="{{ media_url }}{{ product.image_src  }}" alt="вариант 3">
                         <div class="text"></div>
                     </a>
                 </div>
@@ -54,4 +54,4 @@
     </div>
 </div>
 <div class="clr"></div>
-{% endblock content %}
+{% endblock myContentBlock %}

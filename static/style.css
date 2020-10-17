@@ -63,6 +63,11 @@ html, body {
 	float: none;
 }
 
+.basket_record img {
+	max-width: 170px;
+	max-height: 170px;
+}
+
 .basket_container .head {
 	margin: 25px auto;
 }
