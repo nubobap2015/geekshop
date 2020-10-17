@@ -4,7 +4,6 @@ from django.db import models
 from mainapp.models import Product
 
 
-# Create your models here.
 class Basket(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='basket')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -21,15 +20,17 @@ class Basket(models.Model):
 
     @property
     def products_list(self):
-        return list(Basket.objects.filter(user=self.user))
+        return list(self.products())
 
     @property
     def total_cost(self):
-        return sum(list(map(lambda x: x._product_cost, self.products)))
+        _tmp = sum(list(map(lambda x: x._product_cost, self.products)))
+        return _tmp if _tmp is not None else 0
 
     @property
     def total_quantity(self):
-        return sum(list(map(lambda _prod: _prod.quantity, self.products)))
+        _tmp = sum(list(map(lambda _prod: _prod.quantity, self.products)))
+        return _tmp if _tmp is not None else 0
 
     def _get_product(self, prod_pk):
         my_products = self.products.filter(pk=prod_pk)

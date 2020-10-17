@@ -44,7 +44,7 @@
             <h3 class="big-bold">{{ hot_product.name }}</h3>
             <h3 class="red">горячее предложение</h3>
             <p class="price"> {{ hot_product.price }} <span>₽</span></p>
-            <a href="#" class="red-button">
+            <a href="{% url 'basket:add' hot_product.pk %}" class="red-button">
                 заказать <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </a>
             <div class="description-text">
@@ -56,12 +56,12 @@
     <div class="related">
         <div class="title clearfix">
             <h2>Похожие продукты</h2>
-            <a class="explore" href="#">показать все <img src="{% static 'img/arrow.png' %}" alt=""></a>
+            <a class="explore" href="{% url 'products:category' hot_product.pk %}">показать все <img src="{% static 'img/arrow.png' %}" alt=""></a>
         </div>
         <div class="related-products clearfix">
             {% for same_product in same_products %}
                 <div class="block">
-                    <a href="#"><img src="{{ media_url }}{{ same_product.image_src }}"
+                    <a href="{% url 'basket:add' same_product.pk %}"><img src="{{ media_url }}{{ same_product.image_src }}"
                                      alt="{{ same_product.image_alt }}" class="block">
                         <div class="text">
                             <img src="{% static 'img/icon-hover.png' %}" alt="{{ same_product.alt }}">
@@ -73,7 +73,6 @@
             {% endfor %}
 
         </div>
-    </div>
     </div>
 
     <div class="clr"></div>
