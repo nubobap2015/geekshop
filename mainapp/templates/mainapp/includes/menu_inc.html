@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <a href="{% url 'main' %}" class="logo"></a>
 <ul class="menu">
     <li>
@@ -32,7 +34,9 @@
 <a href="#" class="search"></a>
 <a href="{% url 'basket:view' %}" class="basket">
     <span>
-        {% if basket %} {{ basketSUMM}} руб. {% endif %}
+        {% if basket %}
+            {{ basketSUMM}} руб.
+        {% endif %}
     </span>
 </a>
 
