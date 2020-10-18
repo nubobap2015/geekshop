@@ -61,6 +61,7 @@ html, body {
 	display: block;
 	height: 170px;
 	float: none;
+	margin-bottom: 18px;
 }
 
 .basket_record img {
