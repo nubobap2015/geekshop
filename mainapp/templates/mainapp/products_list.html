@@ -14,9 +14,9 @@
             <div class="category-products clearfix">
                 {% for product in products %}
                     <div class="block">
-                        {% if user.is_authenticated %}
+                        <!--{% if user.is_authenticated %}-->
                             <a href="{% url 'products:product' product.pk %}">
-                        {% else %}
+                        <!--{% else %}
                             <a href="{% url 'auth:login' %}">
                         {% endif %}
                         <img src="{{ media_url }}{{ product.image_src }}" alt="{{ product.alt }}">
