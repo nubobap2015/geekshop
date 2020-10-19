@@ -55,9 +55,10 @@ class ShopUser(AbstractUser):
 
     def set_quantity_of_product(self, prod_pk, count):
         my_product = self._get_basket_product(prod_pk)
-        if my_product is None:
-            my_product = self.add_product(prod_pk)
+        #if my_product is None:
+        #    my_product = self.add_product(prod_pk)
         if not my_product:
             return False
         my_product.quantity = count
+        my_product.save()
         return my_product

@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import HttpResponseRedirect, render
 from django.urls import reverse
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 
 @login_required
@@ -27,3 +29,17 @@ def basket_remove(request, pk):
     if request.user.remove_product(pk):
         return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
     raise Http404(f'Продукта с id={pk} нет в БД')
+
+
+@login_required
+def basket_edit(request, pk, quantity):
+    if request.is_ajax():
+        print(f"{pk} - {quantity}")
+        my_product = request.user.set_quantity_of_product(pk, quantity)
+        if my_product.quantity == 0:
+            my_product.delete()
+
+        basket_items = request.user.products.order_by("product__id_cat")
+        content = {"basket_items": basket_items, "media_url": settings.MEDIA_URL, "user": request.user}
+        result = render_to_string("basketapp/includes/inc_basket_list.html", content)
+        return JsonResponse({"result": result})
