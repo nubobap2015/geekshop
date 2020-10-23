@@ -6,6 +6,7 @@ class ProductsCategory(models.Model):
     name = models.CharField(verbose_name="Наименование", max_length=255, blank=False)
     href = models.CharField(verbose_name='Ссылка', max_length=255, blank=True)
     desc = models.CharField(verbose_name='Описание', max_length=8000, blank=True)
+    is_active = models.BooleanField(verbose_name="категория активна", default=True)
     #  Служебные
     isDeleted = models.BooleanField(verbose_name='Удалено', default=False)
     date_create = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True)
