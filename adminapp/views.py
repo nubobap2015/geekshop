@@ -1,7 +1,10 @@
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import HttpResponseRedirect, get_object_or_404, redirect, render
+from django.urls import reverse
 
+from adminapp.forms import ShopUserAdminEditForm
+from authapp.forms import ShopUserRegisterForm
 from authapp.models import ShopUser
 from mainapp.models import Product, ProductsCategory
 
@@ -21,18 +24,53 @@ def users(request):
 
 
 def user_create(request):
-    response = redirect("admin:users")
-    return response
+    title = "пользователи/создание"
+
+    if request.method == "POST":
+        user_form = ShopUserRegisterForm(request.POST, request.FILES)
+        if user_form.is_valid():
+            user_form.save()
+            return HttpResponseRedirect(reverse("admin:users"))
+    else:
+        user_form = ShopUserRegisterForm()
+
+    content = {"title": title, "update_form": user_form, "media_url": settings.MEDIA_URL}
+
+    return render(request, "adminapp/user_update.html", content)
 
 
 def user_update(request, pk):
-    response = redirect("admin:users")
-    return response
+    title = "пользователи/редактирование"
+
+    edit_user = get_object_or_404(ShopUser, pk=pk)
+    if request.method == "POST":
+        edit_form = ShopUserAdminEditForm(request.POST, request.FILES, instance=edit_user)
+        if edit_form.is_valid():
+            edit_form.save()
+            return HttpResponseRedirect(reverse("admin:user_update", args=[edit_user.pk]))
+    else:
+        edit_form = ShopUserAdminEditForm(instance=edit_user)
+
+    content = {"title": title, "update_form": edit_form, "media_url": settings.MEDIA_URL}
+
+    return render(request, "adminapp/user_update.html", content)
 
 
 def user_delete(request, pk):
-    response = redirect("admin:users")
-    return response
+    title = "пользователи/удаление"
+
+    user = get_object_or_404(ShopUser, pk=pk)
+
+    if request.method == "POST":
+        # user.delete()
+        # Instead delete we will set users inactive
+        user.is_active = False
+        user.save()
+        return HttpResponseRedirect(reverse("admin:users"))
+
+    content = {"title": title, "user_to_delete": user, "media_url": settings.MEDIA_URL}
+
+    return render(request, "adminapp/user_delete.html", content)
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -62,7 +100,7 @@ def category_delete(request, pk):
 def products(request, pk):
     title = "админка/продукт"
     category = get_object_or_404(ProductsCategory, pk=pk)
-    products_list = Product.objects.filter(id_cat__pk=pk).order_by("name")
+    products_list = Product.objects.filter(category__pk=pk).order_by("name")
     content = {"title": title, "category": category, "objects": products_list, "media_url": settings.MEDIA_URL}
     return render(request, "adminapp/products.html", content)
 
