@@ -1,4 +1,4 @@
-{% extends 'adminapp/_base.html' %}
+{% extends 'adminapp/base.html' %}
 {% load staticfiles %}
 
 
@@ -6,7 +6,7 @@
 <div class="new_category_form">
     <form class="form-horizontal" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ update_form.as_p }}
+        {{ form.as_p }}
         <input class="form-control" type="submit" value="сохранить">
     </form>
     <button class="btn btn-round form-control last">

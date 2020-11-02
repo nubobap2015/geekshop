@@ -1,16 +1,18 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
-from django.shortcuts import HttpResponseRedirect, render
-from django.urls import reverse
-from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.shortcuts import HttpResponseRedirect, get_object_or_404, render
+from django.template.loader import render_to_string
+from django.urls import reverse
+
+from basketapp.models import Basket
+from mainapp.models import Product
 
 
 @login_required
 def basket(request):
-    title = "Корзина"
-    basket_items = request.user.products.order_by("product__id_cat")
+    title = "корзина"
+    basket_items = Basket.objects.filter(user=request.user).order_by("product__category")
     content = {"title": title, "basket_items": basket_items, "media_url": settings.MEDIA_URL}
     return render(request, "basketapp/basket.html", content)
 
@@ -19,27 +21,41 @@ def basket(request):
 def basket_add(request, pk):
     if "login" in request.META.get("HTTP_REFERER"):
         return HttpResponseRedirect(reverse("products:product", args=[pk]))
-    if request.user.add_product(pk):
-        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
-    raise Http404(f'Продукта с id={pk} нет в БД')
+    product = get_object_or_404(Product, pk=pk)
+    basket = Basket.objects.filter(user=request.user, product=product).first()
+
+    if not basket:
+        basket = Basket(user=request.user, product=product)
+
+    basket.quantity += 1
+    basket.save()
+
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
 @login_required
 def basket_remove(request, pk):
-    if request.user.remove_product(pk):
-        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
-    raise Http404(f'Продукта с id={pk} нет в БД')
+    basket_record = get_object_or_404(Basket, pk=pk)
+    basket_record.delete()
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
 @login_required
 def basket_edit(request, pk, quantity):
     if request.is_ajax():
         print(f"{pk} - {quantity}")
-        my_product = request.user.set_quantity_of_product(pk, quantity)
-        if my_product.quantity == 0:
-            my_product.delete()
+        new_basket_item = Basket.objects.get(pk=int(pk))
 
-        basket_items = request.user.products.order_by("product__id_cat")
-        content = {"basket_items": basket_items, "media_url": settings.MEDIA_URL, "user": request.user}
+        if quantity > 0:
+            new_basket_item.quantity = quantity
+            new_basket_item.save()
+        else:
+            new_basket_item.delete()
+
+        basket_items = Basket.objects.filter(user=request.user).order_by("product__category")
+
+        content = {"basket_items": basket_items, "media_url": settings.MEDIA_URL}
+
         result = render_to_string("basketapp/includes/inc_basket_list.html", content)
+
         return JsonResponse({"result": result})

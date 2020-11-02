@@ -109,7 +109,7 @@ body {
     border-radius: 5px;
     height: 30px;
     margin: 5px auto;
-    width: 175px;
+    width: 145px;
     padding: 0 15px;
 }
 
@@ -120,7 +120,7 @@ body {
 
 .product_record {
     height: 125px;
-    margin: 20px auto;
+    margin: 15px auto;
     position: relative;
 }
 
@@ -142,7 +142,7 @@ body {
     float: left;
     margin-top: 0px;
     margin-left: 25px;
-    width: 175px;
+    width: 135px;
 }
 
 .product_record .product_desc {
@@ -240,7 +240,7 @@ body {
     float: left;
     margin-top: 0px;
     margin-left: 25px;
-    width: 185px;
+    width: 175px;
 }
 
 .category_record .category_desc {
@@ -347,7 +347,7 @@ body {
     float: left;
     margin-top: 15px;
     margin-left: 25px;
-    width: 185px;
+    width: 125px;
 }
 
 .user_record .user_lastlogin {
@@ -435,8 +435,17 @@ body {
     margin: 25px auto;
 }
 
-.basket_container button {
-    margin-left: 25px;
+.basket_list .basket_record button {
+    margin-top: 50px;
+    margin-left: 390px;
+    width: 150px;
+    position: absolute;
+    display: block;
+    float: left;
+}
+
+.basket_list button {
+    margin-left: 45px;
     width: 150px;
     display: block;
     float: left;

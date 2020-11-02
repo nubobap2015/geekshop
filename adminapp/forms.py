@@ -1,8 +1,8 @@
 from django import forms
 
-from authapp.forms import ShopUserEditForm
-from authapp.models import ShopUser
-from mainapp.models import ProductsCategory
+from authnapp.forms import ShopUserEditForm
+from authnapp.models import ShopUser
+from mainapp.models import Product, ProductCategory
 
 
 class ShopUserAdminEditForm(ShopUserEditForm):
@@ -19,5 +19,17 @@ class ProductCategoryEditForm(forms.ModelForm):
             field.help_text = ""
 
     class Meta:
-        model = ProductsCategory
+        model = ProductCategory
+        fields = "__all__"
+
+
+class ProductEditForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ProductEditForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs["class"] = "form-control"
+            field.help_text = ""
+
+    class Meta:
+        model = Product
         fields = "__all__"

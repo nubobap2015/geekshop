@@ -7,7 +7,7 @@ jQuery(document).ready(function () {
         console.log(event);
         event.preventDefault();
     });
-
+    
     // можем получить DOM-объект меню через jQuery
     $('.menu').on('click', 'a', function () {
         console.log('event', event);
@@ -15,7 +15,7 @@ jQuery(document).ready(function () {
         console.log('event.target', event.target);
         event.preventDefault();
     });
-
+   
     // получаем атрибут href
     $('.menu').on('click', 'a', function () {
         var target_href = event.target.href;
