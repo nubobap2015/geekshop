@@ -40,7 +40,7 @@ def products(request, pk=None, page=1):
     basket = get_basket(request.user)
 
     if pk is not None:
-        if pk == 0:
+        if pk == '0':
             category = {"pk": 0, "name": "все"}
             products = Product.objects.filter(is_active=True, category__is_active=True).order_by("price")
         else:
