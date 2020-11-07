@@ -1,10 +1,11 @@
 from django.conf import settings
 from django.contrib import auth
 from django.core.mail import send_mail
+from django.db import transaction
 from django.shortcuts import HttpResponseRedirect, render
 from django.urls import reverse
 
-from authnapp.forms import ShopUserEditForm, ShopUserLoginForm, ShopUserRegisterForm
+from authnapp.forms import ShopUserEditForm, ShopUserLoginForm, ShopUserProfileEditForm, ShopUserRegisterForm
 from authnapp.models import ShopUser
 
 
@@ -54,18 +55,22 @@ def register(request):
     return render(request, "authnapp/register.html", content)
 
 
+@transaction.atomic
 def edit(request):
     title = "редактирование"
 
     if request.method == "POST":
         edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
-        if edit_form.is_valid():
+        profile_form = ShopUserProfileEditForm(request.POST, instance=request.user.shopuserprofile)
+        if edit_form.is_valid() and profile_form.is_valid():
             edit_form.save()
             return HttpResponseRedirect(reverse("auth:edit"))
     else:
         edit_form = ShopUserEditForm(instance=request.user)
+        profile_form = ShopUserProfileEditForm(instance=request.user.shopuserprofile)
 
-    content = {"title": title, "edit_form": edit_form, "media_url": settings.MEDIA_URL}
+    content = {"title": title, "edit_form": edit_form, "profile_form": profile_form, "media_url": settings.MEDIA_URL}
+
     return render(request, "authnapp/edit.html", content)
 
 
@@ -78,7 +83,13 @@ def send_verify_mail(user):
     \n{settings.DOMAIN_NAME}{verify_link}"
 
     print(f"from: {settings.EMAIL_HOST_USER}, to: {user.email}")
-    return send_mail(title, message, settings.EMAIL_HOST_USER, [user.email], fail_silently=False,)
+    return send_mail(
+        title,
+        message,
+        settings.EMAIL_HOST_USER,
+        [user.email],
+        fail_silently=False,
+    )
 
 
 def verify(request, email, activation_key):
