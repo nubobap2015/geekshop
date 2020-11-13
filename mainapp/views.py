@@ -12,6 +12,7 @@ from .models import Contact, Product, ProductCategory
 
 def main(request):
     title = "главная"
+    usr = request.user
     products = Product.objects.filter(is_active=True, category__is_active=True)[:3]
     content = {"title": title, "products": products, "media_url": settings.MEDIA_URL}
     return render(request, "mainapp/index.html", content)

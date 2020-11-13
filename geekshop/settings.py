@@ -14,7 +14,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import json
 import os
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -26,6 +28,7 @@ SECRET_KEY = "pzegz3ade%pvc00#@7bxcz9mt8tv(^l!5a9iks0t_@)ra#&om$"
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+
 
 # Application definition
 
@@ -93,12 +96,14 @@ DATABASES = {
     }
 }
 
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 if DEBUG:
     AUTH_PASSWORD_VALIDATORS = []
 else:
     AUTH_PASSWORD_VALIDATORS = [
+
         {
             "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
         },
@@ -113,6 +118,7 @@ else:
         },
     ]
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -125,6 +131,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -205,3 +212,4 @@ SOCIAL_AUTH_PIPELINE = (
     "social_core.pipeline.social_auth.load_extra_data",
     "social_core.pipeline.user.user_details",
 )
+
