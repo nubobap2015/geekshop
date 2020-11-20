@@ -12,7 +12,7 @@ from mainapp.models import Product
 @login_required
 def basket(request):
     title = "корзина"
-    basket_items = Basket.objects.filter(user=request.user).order_by("product__category")
+    basket_items = Basket.objects.filter(user=request.user).order_by("product__category").select_related()
     content = {"title": title, "basket_items": basket_items, "media_url": settings.MEDIA_URL}
     return render(request, "basketapp/basket.html", content)
 
