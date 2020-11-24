@@ -8,6 +8,10 @@ click==7.1.2
 cryptography==3.2.1
 defusedxml==0.7.0rc1
 Django==2.2.16
+django-crispy-forms==1.9.2
+django-debug-toolbar==3.1.1
+django-debug-toolbar-template-profiler==2.0.1
+django-extensions==3.0.9
 idna==2.10
 isort==5.6.1
 lazy-object-proxy==1.4.3
